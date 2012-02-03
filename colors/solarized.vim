@@ -259,6 +259,7 @@ if (has("gui_running") && g:solarized_degrade == 0)
     let s:cyan        = "#2aa198"
     "let s:green       = "#859900" "original
     let s:green       = "#719e07" "experimental
+    let s:nonprint    = "#eeeeee"
 elseif (has("gui_running") && g:solarized_degrade == 1)
     " These colors are identical to the 256 color mode. They may be viewed
     " while in gui mode via "let g:solarized_degrade=1", though this is not
@@ -280,6 +281,7 @@ elseif (has("gui_running") && g:solarized_degrade == 1)
     let s:blue        = "#0087ff"
     let s:cyan        = "#00afaf"
     let s:green       = "#5f8700"
+    let s:nonprint    = "#eeeeee"
 elseif g:solarized_termcolors != 256 && &t_Co >= 16
     let s:vmode       = "cterm"
     let s:base03      = "8"
@@ -298,6 +300,7 @@ elseif g:solarized_termcolors != 256 && &t_Co >= 16
     let s:blue        = "4"
     let s:cyan        = "6"
     let s:green       = "2"
+    let s:nonprint    = "7"
 elseif g:solarized_termcolors == 256
     let s:vmode       = "cterm"
     let s:base03      = "234"
@@ -316,6 +319,7 @@ elseif g:solarized_termcolors == 256
     let s:blue        = "33"
     let s:cyan        = "37"
     let s:green       = "64"
+    let s:nonprint    = "187"
 else
     let s:vmode       = "cterm"
     let s:bright      = "* term=bold cterm=bold"
@@ -351,6 +355,7 @@ else
     let s:blue        = "DarkBlue"      " 4
     let s:cyan        = "DarkCyan"      " 6
     let s:green       = "DarkGreen"     " 2
+    let s:nonprint    = :LightGray"     " 7
 
 endif
 "}}}
@@ -530,6 +535,9 @@ else
     let s:sp_cyan      = ""
 endif
 
+" non-printable characters
+exe "let s:nonprint = ' ".s:vmode."fg=".s:nonprint   ."'"
+
 "}}}
 " Basic highlighting"{{{
 " ---------------------------------------------------------------------
@@ -603,8 +611,8 @@ if      (g:solarized_visibility=="high")
     exe "hi! SpecialKey" .s:fmt_revr   .s:fg_red    .s:bg_none
     exe "hi! NonText"    .s:fmt_bold   .s:fg_red    .s:bg_none
 elseif  (g:solarized_visibility=="low")
-    exe "hi! SpecialKey" .s:fmt_bold   .s:fg_base02 .s:bg_none
-    exe "hi! NonText"    .s:fmt_bold   .s:fg_base02 .s:bg_none
+    exe "hi! SpecialKey" .s:fmt_bold   .s:nonprint .s:bg_none
+    exe "hi! NonText"    .s:fmt_bold   .s:nonprint .s:bg_none
 else
     exe "hi! SpecialKey" .s:fmt_bold   .s:fg_base00 .s:bg_base02
     exe "hi! NonText"    .s:fmt_bold   .s:fg_base00 .s:bg_none
